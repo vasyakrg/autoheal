@@ -1,0 +1,20 @@
+---
+version: '3.3'
+services:
+  test:
+    build: ./test
+    container_name: test
+    labels:
+      "autoheal": "true"
+    ports:
+      - 80:80
+      - 3000:3000
+
+  autoheal:
+    image: willfarrell/autoheal
+    container_name: autoheal
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    environment:
+      - AUTOHEAL_INTERVAL=10
+      - CURL_TIMEOUT=30
